@@ -31,13 +31,16 @@ public class Model {
 		}
 		//Controllo del input
 		if(!tentativoValido(tentativo)) {
-			throw new InvalidParameterException("Deve inserire un numero tra 1 e "+this.nMax);
+			throw new InvalidParameterException("Deve inserire un numero tra 1 e "+this.nMax +", e non puo inserire due volte lo stesso numero.");
 			
 		}
 		// Tentativo valido
 		this.tentativiFatti++;
+		this.tentativi.add(tentativo);
+		
 		if(this.tentativiFatti==tMax) {
 			this.inGioco=false; //Partita terminata
+			
 		}
 		
 		if(tentativo==this.segreto) {
@@ -51,6 +54,7 @@ public class Model {
 	}
 	/**
 	 * Questo metodo mi dice se il tentativo è valido oppure no
+	 * Ritornarà false anche se il numero è stato inserito due volte
 	 * @return
 	 */
 	public boolean tentativoValido(int tentativo) {
