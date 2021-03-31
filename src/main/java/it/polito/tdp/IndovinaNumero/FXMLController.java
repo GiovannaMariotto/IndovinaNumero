@@ -53,6 +53,7 @@ public class FXMLController {
     	this.model.nuovaPartita(); //inizio la partita
     	
     	//gestione dell'interfaccia
+    	this.txtrisultato.clear();
     	this.tentativitxt.setText(Integer.toString(this.model.gettMax()));
     	this.layoutTentativo.setDisable(false);
     	
@@ -72,17 +73,20 @@ public class FXMLController {
     	}
     	this.txttentativoutente.setText("");
     	
-    	this.tentativitxt.setText(Integer.toString(this.model.gettMax()-this.model.getTentativiFatti())); //Integer-->String
+    	
     	int risult;
+    	
     	try{
     		risult= this.model.tentativo(tentativo);
     	} catch(IllegalStateException ise) {
     		this.txtrisultato.setText(ise.getMessage());
+    		this.layoutTentativo.setDisable(true);
     		return;
     	} catch(InvalidParameterException ipe) {
     		this.txtrisultato.setText(ipe.getMessage());
     		return;
     	}
+    	this.tentativitxt.setText(Integer.toString(this.model.gettMax()-this.model.getTentativiFatti())); //Integer-->String
     	
     	if(risult==0) {
     		//Utente ha indovinato

@@ -1,6 +1,8 @@
 package it.polito.tdp.IndovinaNumero.model;
 
 import java.security.InvalidParameterException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Model {
 
@@ -11,11 +13,14 @@ public class Model {
 	private int tentativiFatti;
 	private boolean inGioco = false;
 	
+	private Set<Integer> tentativi; //Integer ha il suo HashCode ben definito (int no)
+	
 	public void nuovaPartita() {
 		//gestione di una nuova partita
 		this.segreto = (int)(Math.random()*nMax)+1; //Math.ramdon --> Double
     	this.tentativiFatti=0;
     	this.inGioco=true;
+    	this.tentativi = new HashSet<Integer>();
 	}
 
 	//tentativo: cosa è inserito il utente
@@ -26,7 +31,8 @@ public class Model {
 		}
 		//Controllo del input
 		if(!tentativoValido(tentativo)) {
-			throw new InvalidParameterException("Deve inserire un numero tra 1 e nMax");
+			throw new InvalidParameterException("Deve inserire un numero tra 1 e "+this.nMax);
+			
 		}
 		// Tentativo valido
 		this.tentativiFatti++;
@@ -51,9 +57,10 @@ public class Model {
 		if(tentativo<1 || tentativo>nMax) {
 			return false;
 		}
-		else
-			return true;
-		
+		if(tentativi.contains(tentativo)){
+			return false;
+		}
+		return true;
 		
 	}
 	
