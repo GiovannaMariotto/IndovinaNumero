@@ -22,7 +22,7 @@ public class Model {
 	public int tentativo(int tentativo) {
 		//controllare se la partita è in corso
 		if(!inGioco) {
-			throw new IllegalStateException();
+			throw new IllegalStateException("HAI PERSO! IL SEGRETO ERA:"+this.segreto);
 		}
 		//Controllo del input
 		if(!tentativoValido(tentativo)) {
